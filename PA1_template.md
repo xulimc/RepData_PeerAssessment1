@@ -1,8 +1,5 @@
----
-title: "Reproducible Research Peer Assignment 1"
-author: "Li Xu"
-output: html_document
----
+# Reproducible Research Peer Assignment 1
+Li Xu  
 
 ##Loading and preprocessing the data
 The data set can be downloaded from the following website
@@ -40,13 +37,17 @@ TotalStepsPerDay<-tapply(DataWithoutNA$steps,DataWithoutNA$date,sum,na.rm=T)
 ```
 The histogram of the total number of steps taken per day is as follows: (Task 2)
 
-```{r echo=FALSE}
+
+```r
 Data<-read.csv("activity.csv",sep=",",header=T)
 Data$date<-as.Date(Data$date,"%Y-%m-%d")
 DataWithoutNA<-na.omit(Data)
 TotalStepsPerDay<-tapply(DataWithoutNA$steps,DataWithoutNA$date,sum,na.rm=T)
-hist(TotalStepsPerDay,main="Total Number of Steps Taken Per Day",xlab="total number of steps",ylab="frequency")
+hist(TotalStepsPerDay,main="Total Number of Steps Taken Per Day",
+     xlab="total number of steps",ylab="frequency")
 ```
+
+![](./PA1_template_files/figure-html/unnamed-chunk-1-1.png) 
 
 We then calculate the mean and median of the total number of steps per day by 
 
@@ -78,13 +79,17 @@ The means of the total number of steps taken per day are as follows:
 
 We can draw the histogram
 
-```{r echo=FALSE}
+
+```r
 Data<-read.csv("activity.csv",sep=",",header=T)
 Data$date<-as.Date(Data$date,"%Y-%m-%d")
 DataWithoutNA<-na.omit(Data)
 MeanOfTotalStepsPerDay<-tapply(DataWithoutNA$steps,DataWithoutNA$date,mean,na.rm=T)
-hist(MeanOfTotalStepsPerDay,main="Mean of Total Number of Steps Taken Per Day",xlab="mean of total number of steps",ylab="frequency")
+hist(MeanOfTotalStepsPerDay,main="Mean of Total Number of Steps Taken Per Day",
+     xlab="mean of total number of steps",ylab="frequency")
 ```
+
+![](./PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
 
 And all medians of the total number of steps taken per day is 0 (Task 3).
 
@@ -97,13 +102,18 @@ MeanofTotalStepsPerInterval<-tapply(DataWithoutNA$steps,DataWithoutNA$interval,m
 ```
 Then we make the time series plot of the 5-minute interval and the average number of steps taken, averaged across all days as follows: (Task 1)
 
-```{r echo=FALSE}
+
+```r
 Data<-read.csv("activity.csv",sep=",",header=T)
 Data$date<-as.Date(Data$date,"%Y-%m-%d")
 DataWithoutNA<-na.omit(Data)
 MeanOfTotalStepsPerInterval<-tapply(DataWithoutNA$steps,DataWithoutNA$interval,mean,na.rm=T)
-plot(unique(Data$interval),MeanOfTotalStepsPerInterval,type="l",main="Average of Total Number of Steps Taken Per Time Interval",xlab="average of total number of steps",ylab="frequency")
+plot(unique(Data$interval),MeanOfTotalStepsPerInterval,type="l",
+     xlab="average of total number of steps",ylab="frequency",
+     main="Average of Total Number of Steps Taken Per Time Interval")
 ```
+
+![](./PA1_template_files/figure-html/unnamed-chunk-3-1.png) 
 
 By typing
 
@@ -132,7 +142,8 @@ for(index in 1:nrow(NewData)){
 
 The histogram of the total number of steps taken each day in the new data set is as follows:
 
-```{r echo=FALSE}
+
+```r
 Data<-read.csv("activity.csv",sep=",",header=T)
 Data$date<-as.Date(Data$date,"%Y-%m-%d")
 DataWithoutNA<-na.omit(Data)
@@ -145,8 +156,11 @@ for(index in 1:nrow(NewData)){
   }
 }
 TotalStepsPerDay<-tapply(NewData$steps,NewData$date,sum,na.rm=T)
-hist(TotalStepsPerDay,main="Total Number of Steps Taken Per Day in the new data set",xlab="total number of steps",ylab="frequency")
+hist(TotalStepsPerDay,main="Total Number of Steps Taken Per Day in the new data set",
+     xlab="total number of steps",ylab="frequency")
 ```
+
+![](./PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
 
 We then calculate the mean and median of the total number of steps per day in the new data set by 
 
@@ -226,8 +240,8 @@ MeanWeekday<-tapply(NewDataWeekday$steps,NewDataWeekday$interval,mean,na.rm=T)
 MeanWeekend<-tapply(NewDataWeekend$steps,NewDataWeekend$interval,mean,na.rm=T)
 Mean<-c(MeanWeekend,MeanWeekday)
 Interval<-c(unique(Data$interval),unique(Data$interval))
-Day<-c(c(rep("weekend",length(unique(Data$interval)))),c(rep("weekday",
-    length(unique(Data$interval)))))
+Day<-c(c(rep("weekend",length(unique(Data$interval)))), 
+    c(rep("weekday",length(unique(Data$interval)))))
 FinalPlotData<-data.frame("MeanCol"=Mean,"IntervalCol"=Interval,"DayCol"=Day)
 xyplot(MeanCol~IntervalCol|DayCol,data=FinalPlotData,layout=c(1,2),type="l",
     ylab="Number of steps",xlab="Interval")
@@ -235,7 +249,8 @@ xyplot(MeanCol~IntervalCol|DayCol,data=FinalPlotData,layout=c(1,2),type="l",
 
 The plot is as follows (Task 2):
 
-```{r echo=FALSE}
+
+```r
 library(lattice)
 Data<-read.csv("activity.csv",sep=",",header=T)
 Data$date<-as.Date(Data$date,"%Y-%m-%d")
@@ -260,10 +275,14 @@ MeanWeekday<-tapply(NewDataWeekday$steps,NewDataWeekday$interval,mean,na.rm=T)
 MeanWeekend<-tapply(NewDataWeekend$steps,NewDataWeekend$interval,mean,na.rm=T)
 Mean<-c(MeanWeekend,MeanWeekday)
 Interval<-c(unique(Data$interval),unique(Data$interval))
-Day<-c(c(rep("weekend",length(unique(Data$interval)))),c(rep("weekday",length(unique(Data$interval)))))
+Day<-c(c(rep("weekend",length(unique(Data$interval)))),
+    c(rep("weekday",length(unique(Data$interval)))))
 FinalPlotData<-data.frame("MeanCol"=Mean,"IntervalCol"=Interval,"DayCol"=Day)
-xyplot(MeanCol~IntervalCol|DayCol,data=FinalPlotData,layout=c(1,2),type="l",ylab="Number of steps",xlab="Interval")
+xyplot(MeanCol~IntervalCol|DayCol,data=FinalPlotData,layout=c(1,2),type="l",
+    ylab="Number of steps",xlab="Interval")
 ```
+
+![](./PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
 
 
 
